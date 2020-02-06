@@ -1,5 +1,5 @@
 import React from 'react'
-import { Popover, Position, Button, Intent, Menu, MenuItem } from '@blueprintjs/core'
+import { Popover, Position, Button, Intent, Menu, MenuItem, Toaster } from '@blueprintjs/core'
 import { ContactForm } from './Form'
 import { IContact } from '../stores/contact/Reducer'
 import { connect } from 'react-redux'
@@ -7,7 +7,7 @@ import { deleteContact } from '../stores/contact/Actions'
 
 const ContactListComponent = (props: {
   contacts?: IContact[];
-  deleteContact: (contact: IContact) => void;
+  deleteContact: (contact: IContact) => Promise<any>;
 }) => {
   return (
     <ul className="pl0 mt0">
@@ -47,7 +47,14 @@ const ContactListComponent = (props: {
                     text="Confirm"
                     intent={Intent.DANGER}
                     className="pt-minimal"
-                    onClick={() => props.deleteContact(contactInfo)}
+                    onClick={() => props.deleteContact(contactInfo).then((response: any) => {
+                      if (response.status && response.status === 200) {
+                        Toaster.create().show({
+                          intent: Intent.DANGER,
+                          message: 'Deleted successfully.'
+                        });
+                      }
+                    })}
                   />
                   <MenuItem
                     icon="cross"

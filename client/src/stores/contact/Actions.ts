@@ -52,6 +52,7 @@ export const deleteContact = (updatedContact: IContact) => async (dispatch: any)
   try {
     const response = await axios.delete(`${APIUrl}/phonebook/${updatedContact._id}`);
     dispatch({ type: DELETE_CONTACT, payload: response.data.deletedContact });
+    return response;
   } catch (error) {
     if (isEqual(error.message, 'Network Error')) {
       console.log('Network Error');

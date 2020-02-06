@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, FormGroup, InputGroup, Button, Intent } from '@blueprintjs/core'
+import { Card, FormGroup, InputGroup, Button, Intent, Toaster } from '@blueprintjs/core'
 import { Form, Field } from 'react-final-form'
 import { composeValidators, required, checkError, phoneNoValidation } from '../utils';
 import { IContact } from '../stores/contact/Reducer';
@@ -21,6 +21,10 @@ const ContactFormComponent = (props: {
     : await props.createContact(values);
 
     if (response.status === 200 || response.status === 201) {
+      Toaster.create().show({
+        intent: Intent.SUCCESS,
+        message: 'Saved successfully.'
+      });
       return true;
     }
     return { [response.data.errors[0].fieldName]: response.data.errors[0].message };
@@ -108,7 +112,7 @@ const ContactFormComponent = (props: {
                   </div>
                   <Button
                     text="Submit"
-                    // className={`${(hasValidationErrors || hasSubmitErrors) ? '' : 'bp3-popover-dismiss'}`}
+                    className={`${(hasValidationErrors || hasSubmitErrors) ? '' : 'bp3-popover-dismiss'}`}
                     loading={submitting}
                     type="submit"
                     disabled={submitting || pristine}
