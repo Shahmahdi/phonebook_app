@@ -17,5 +17,5 @@ export const phoneNoValidation = (phone: string) => {
   if (phone.match(regexForPhoneNoValidation)) {
     return undefined;
   }
-  return 'Please enter a 11 digit no e.g. 01711111111';
+  return 'Please enter a 11 digit no. start with 01 e.g. 01711111111';
 };

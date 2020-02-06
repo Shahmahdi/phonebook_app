@@ -26,8 +26,6 @@ const uniqueMessage = error => {
 */
 exports.errorHandler = error => {
     let message = "";
-    console.log('error', error)
-console.log('error.code', error.code)
     if (error.code) {
         switch (error.code) {
             case 11000:

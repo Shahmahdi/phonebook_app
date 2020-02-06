@@ -44,7 +44,15 @@ const create = (req, res, next) => {
 
 const update = (req, res, next) => {
 
-  const contact = req.contact;  
+  if (isEmpty(req.body.name) === true) {
+    return res.status(400).json({ message: 'Name is required' });
+  }
+
+  if (isEmpty(req.body.phoneNumber) === true) {
+    return res.status(400).json({ message: 'Phone number is required' });
+  }
+
+  const contact = req.contact;
   contact.name = req.body.name;
   contact.phoneNumber = req.body.phoneNumber;
 

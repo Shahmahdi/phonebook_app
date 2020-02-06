@@ -15,25 +15,25 @@ const AppComponent = (props: {
 
   return (
     <div>
-      <Navbar className="flex justify-center" fixedToTop={true}>
+      <Navbar className="bp3-dark flex justify-center" fixedToTop={true}>
         <Navbar.Group>
           <div className="f3 fw6 i">Phonebook</div>
         </Navbar.Group>
       </Navbar>
       <Card
         className="cf flex w-50-l w-75-m w-100"
-        style={{ margin: '75px auto 30px', minHeight: '85vh' }}
+        style={{ margin: '75px auto 30px', minHeight: '85vh', padding: '0px' }}
       >
         <div className="fl w-100">
-          <div className="fl w-100  pb1">
+          <div className="bg-black-10 fl pa3 pb1 w-100">
             <div
-              className="fl w-75"
+              className="fl w-50 w-60-ns"
               style={{ lineHeight: '20px' }}
             >
               <p className="fw5 mb0 f4">Phone List</p>
               <p className="fw4 mb0 f5 i"><small>Total: 20</small></p>
             </div>
-            <div className="fl w-25">
+            <div className="fl w-50 w-40-ns">
               <Popover
                 className="fr"
                 position={Position.LEFT_BOTTOM}
@@ -46,13 +46,14 @@ const AppComponent = (props: {
                     text="Add Contact"
                     intent={Intent.SUCCESS}
                     minimal={true}
+                    style={{border: '1px solid'}}
                   />
                 }
               />
             </div>
           </div>
 
-          <div className="fl w-100">
+          <div className="fl w-100 pa2">
             <InputGroup
               fill={true}
               leftIcon="search"

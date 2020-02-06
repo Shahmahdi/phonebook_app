@@ -23,21 +23,22 @@ const ContactFormComponent = (props: {
 
   return (
     <div>
-      <Card className="cf">
+      <Card className="cf w5">
         <Form
           onSubmit={onSubmit}
           initialValues={{
             name: props.contactInfo ? props.contactInfo.name : '',
             phoneNumber: props.contactInfo ? props.contactInfo.phoneNumber : ''
           }}
-          render={({ handleSubmit, submitting, pristine }) => (
+          render={({ handleSubmit, submitting, pristine, hasSubmitErrors, hasValidationErrors,valid }) => (
             <>
               <form
                 className="dt fl cf"
-                onSubmit={handleSubmit}>
+                onSubmit={handleSubmit}
+              >
                 <div className="mw9 center ph3-ns v-mid dtc">
                   <div className="flex pt3 justify-content">
-                    <div>
+                    <div className="fl w-100">
                       <Field<string>
                         name="name"
                         validate={composeValidators(required)}
@@ -50,13 +51,12 @@ const ContactFormComponent = (props: {
                             >
                               <InputGroup
                                 id="name"
-                                // className={`bw1 pb2 br0 ba ${checkError(meta) ? 'b--red' : ''}`}
                                 placeholder="e.g. John"
                                 value={input.value}
                                 onChange={input.onChange}
                               />
                               {checkError(meta) &&
-                                <small className="mv3" style={{ color: 'red' }}>
+                                <small className="fl w-100" style={{ color: 'red' }}>
                                   {meta.error || meta.submitError}
                                 </small>
                               }
@@ -81,20 +81,16 @@ const ContactFormComponent = (props: {
                                 labelFor="phone"
                                 labelInfo="(required)"
                               >
-                                <InputGroup
-                                  className={`pr2`}
-                                  value="+88"
-                                  onChange={(e: any) => console.log(e)}
-                                />
+                                <span className="f5 fl fw5 pr2 pt1">+88</span>
                                 <InputGroup
                                   id="phone"
-                                  // className={`bw1 pb2 br0 ba ${checkError(meta) ? 'b--red' : ''}`}
+                                  className="fl"
                                   placeholder="e.g. 01***********"
                                   value={input.value}
                                   onChange={input.onChange}
                                 />
                                 {checkError(meta) &&
-                                  <small className="mv3" style={{ color: 'red' }}>
+                                  <small className="fl w-100" style={{ color: 'red' }}>
                                     {meta.error || meta.submitError}
                                   </small>
                                 }
@@ -107,6 +103,7 @@ const ContactFormComponent = (props: {
                   </div>
                   <Button
                     text="Submit"
+                    className={`${(hasValidationErrors || hasSubmitErrors) ? '' : 'bp3-popover-dismiss'}`}
                     loading={submitting}
                     type="submit"
                     disabled={submitting || pristine}

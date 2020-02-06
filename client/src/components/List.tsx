@@ -10,7 +10,7 @@ const ContactListComponent = (props: {
   deleteContact: (contact: IContact) => void;
 }) => {
   return (
-    <ul className="pl0">
+    <ul className="pl0 mt0">
       {props.contacts && props.contacts.length > 0 ? props.contacts.map((contactInfo, i) => (
         <li
           key={contactInfo._id}

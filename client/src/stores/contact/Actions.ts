@@ -22,11 +22,13 @@ export const createContact = (newContact: IContact) => async (dispatch: any) => 
   try {
     const response = await axios.post(`${APIUrl}/phonebook`, newContact);
     dispatch({ type: ADD_CONTACT, payload: response.data });
+    return response;
   } catch (error) {
     if (isEqual(error.message, 'Network Error')) {
       console.log('Network Error');
     } else {
       console.log(error.response);
+      return error.response;
     }
   }
 };
@@ -35,11 +37,13 @@ export const updateContact = (updatedContact: IContact) => async (dispatch: any)
   try {
     const response = await axios.put(`${APIUrl}/phonebook/${updatedContact._id}`, updatedContact);
     dispatch({ type: EDIT_CONTACT, payload: response.data.updatedContact });
+    return response;
   } catch (error) {
     if (isEqual(error.message, 'Network Error')) {
       console.log('Network Error');
     } else {
       console.log(error.response);
+      return error.response;
     }
   }
 };
