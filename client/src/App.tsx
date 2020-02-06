@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Navbar, Button, Intent, Card, InputGroup, Popover, Position } from '@blueprintjs/core';
-import { ContactForm } from './components/Form';
+import { Navbar, Card, InputGroup } from '@blueprintjs/core';
 import { ContactList } from './components/List';
 import { connect } from 'react-redux';
 import { getAllContacts, searchContacts } from './stores/contact/Actions';
+import { Header } from './components/Header';
 
 const AppComponent = (props: {
   getAllContacts: () => void;
@@ -26,33 +26,7 @@ const AppComponent = (props: {
         style={{ margin: '75px auto 30px', minHeight: '85vh', padding: '0px' }}
       >
         <div className="fl w-100">
-          <div className="bg-black-10 fl pa3 pb1 w-100">
-            <div
-              className="fl w-50 w-60-ns"
-              style={{ lineHeight: '20px' }}
-            >
-              <p className="fw5 mb0 f4">Phone List</p>
-              <p className="fw4 mb0 f5 i"><small>Total: 20</small></p>
-            </div>
-            <div className="fl w-50 w-40-ns">
-              <Popover
-                className="fr"
-                position={Position.LEFT_BOTTOM}
-                content={
-                  <ContactForm />
-                }
-                target={
-                  <Button
-                    icon="new-object"
-                    text="Add Contact"
-                    intent={Intent.SUCCESS}
-                    minimal={true}
-                    style={{border: '1px solid'}}
-                  />
-                }
-              />
-            </div>
-          </div>
+          <Header />
 
           <div className="fl w-100 pa2">
             <InputGroup
@@ -73,7 +47,6 @@ const AppComponent = (props: {
 
         </div>
       </Card>
-
     </div>
   );
 }

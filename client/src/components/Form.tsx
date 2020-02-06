@@ -81,10 +81,10 @@ const ContactFormComponent = (props: {
                                 labelFor="phone"
                                 labelInfo="(required)"
                               >
-                                <span className="f5 fl fw5 pr2 pt1">+88</span>
+                                <span className="f5 fl w-20 fw5 pr2 pt1">+88</span>
                                 <InputGroup
                                   id="phone"
-                                  className="fl"
+                                  className="fl w-80"
                                   placeholder="e.g. 01***********"
                                   value={input.value}
                                   onChange={input.onChange}
