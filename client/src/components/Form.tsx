@@ -14,11 +14,16 @@ const ContactFormComponent = (props: {
 }) => {
 
   const onSubmit = async (values: IContact) => {
-    props.edit ? await props.updateContact({
+    const response: any = props.edit ? await props.updateContact({
       _id: props.contactInfo!._id,
       ...values
     })
     : await props.createContact(values);
+
+    if (response.status === 200 || response.status === 201) {
+      return true;
+    }
+    return { [response.data.errors[0].fieldName]: response.data.errors[0].message };
   };
 
   return (
@@ -103,7 +108,7 @@ const ContactFormComponent = (props: {
                   </div>
                   <Button
                     text="Submit"
-                    className={`${(hasValidationErrors || hasSubmitErrors) ? '' : 'bp3-popover-dismiss'}`}
+                    // className={`${(hasValidationErrors || hasSubmitErrors) ? '' : 'bp3-popover-dismiss'}`}
                     loading={submitting}
                     type="submit"
                     disabled={submitting || pristine}

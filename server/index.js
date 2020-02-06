@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
 const allRoutes = require('./index.route');
+const mongoErrorHandler = require('./validator/mongoErrorFormat');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/api/v1', allRoutes);
+app.use(mongoErrorHandler);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {

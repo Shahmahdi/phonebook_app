@@ -36,7 +36,7 @@ export const createContact = (newContact: IContact) => async (dispatch: any) => 
 export const updateContact = (updatedContact: IContact) => async (dispatch: any) => {
   try {
     const response = await axios.put(`${APIUrl}/phonebook/${updatedContact._id}`, updatedContact);
-    dispatch({ type: EDIT_CONTACT, payload: response.data.updatedContact });
+    dispatch({ type: EDIT_CONTACT, payload: response.data });
     return response;
   } catch (error) {
     if (isEqual(error.message, 'Network Error')) {

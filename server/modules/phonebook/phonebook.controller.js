@@ -1,5 +1,4 @@
 const Phonebook = require('./phonebook.model');
-const { errorHandler } = require('./../../validator/dbErrorHandler');
 const { isEmpty } = require('lodash');
 
 const load = (req, res, next, id) => {
@@ -38,7 +37,7 @@ const create = (req, res, next) => {
     })
     .catch(e => {
       console.log(e);
-      return res.status(400).json({ error: errorHandler(e) });
+      next(e);
     })
 };
 
@@ -56,15 +55,26 @@ const update = (req, res, next) => {
   contact.name = req.body.name;
   contact.phoneNumber = req.body.phoneNumber;
 
-  contact.save((err, updatedContact) => {
-    if (err) {
-      return res.status(400).json({ message: 'Contact updated unsuccessful' });
-    }
-    res.json({
-      message: 'Contact successfully updateded',
-      updatedContact
+  contact
+    .save()
+    .then(updatedContact => {
+      res.status(200).json(updatedContact);
     })
-  })
+    .catch(e => {
+      console.log(e);
+      next(e);
+    })
+  // contact.save((err, updatedContact) => {
+  //   console.log(err, err)
+  //   if (err) {
+  //     next(err);
+  //   }
+  //   console.log(`updatedContact: `, updatedContact)
+  //   res.stajson({
+  //     message: 'Contact successfully updateded',
+  //     updatedContact
+  //   })
+  // })
 };
 
 const remove = (req, res, next) => {
@@ -93,8 +103,7 @@ const search = (req, res, next) => {
   const searchingValue = req.query.phone;
   Phonebook.find({ phoneNumber: new RegExp('^' + searchingValue) }, function (err, searchedValue) {
     if (err) {
-      console.log(`search error: `, err);
-      return res.status(400).json({ error: errorHandler(err) })
+      next(err);
     }
     res.status(200).json(searchedValue);
   });
