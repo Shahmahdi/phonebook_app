@@ -11,4 +11,6 @@ router.route('/:id')
   .put(phonebookCtrl.update)
   .delete(phonebookCtrl.remove);
 
+router.param('id', phonebookCtrl.load);
+
 module.exports = router;
