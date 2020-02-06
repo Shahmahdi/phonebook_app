@@ -89,4 +89,15 @@ const list = (req, res, next) => {
     .catch(e => console.log('Error in get phonebook list: ', e));
 }
 
-module.exports = { load, create, list, update, remove };
+const search = (req, res, next) => {
+  const searchingValue = req.query.phone;
+  Phonebook.find({ phoneNumber: new RegExp('^' + searchingValue) }, function (err, searchedValue) {
+    if (err) {
+      console.log(`search error: `, err);
+      return res.status(400).json({ error: errorHandler(err) })
+    }
+    res.status(200).json(searchedValue);
+  });
+}
+
+module.exports = { load, create, list, update, remove, search };

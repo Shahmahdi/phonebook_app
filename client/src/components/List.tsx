@@ -14,7 +14,7 @@ const ContactListComponent = (props: {
       {props.contacts && props.contacts.length > 0 ? props.contacts.map((contactInfo, i) => (
         <li
           key={contactInfo._id}
-          className={`flex items-center lh-copy pa3 ph0-l ${props.contacts!.length - 1 !== i ? 'bb b--black-10' : ''}`}
+          className={`flex items-center lh-copy pa3 ${props.contacts!.length - 1 !== i ? 'bb b--black-10' : ''}`}
         >
           <div className="pl3 flex-auto">
             <div className="db f4 f5 fw4">{contactInfo.name}</div>

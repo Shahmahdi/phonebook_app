@@ -11,6 +11,9 @@ router.route('/:id')
   .put(phonebookCtrl.update)
   .delete(phonebookCtrl.remove);
 
+router.route('/search')
+  .get(phonebookCtrl.search);
+
 router.param('id', phonebookCtrl.load);
 
 module.exports = router;

@@ -3,10 +3,11 @@ import { Navbar, Button, Intent, Card, InputGroup, Popover, Position } from '@bl
 import { ContactForm } from './components/Form';
 import { ContactList } from './components/List';
 import { connect } from 'react-redux';
-import { getAllContacts } from './stores/contact/Actions';
+import { getAllContacts, searchContacts } from './stores/contact/Actions';
 
 const AppComponent = (props: {
   getAllContacts: () => void;
+  searchContacts: (value: string) => void;
 }) => {
   
   useEffect(() => {
@@ -57,7 +58,9 @@ const AppComponent = (props: {
             <InputGroup
               fill={true}
               leftIcon="search"
-              onChange={(e: any) => console.log(e.target.value)}
+              onChange={(e: any) => {
+                props.searchContacts(e.target.value);
+              }}
               placeholder="e.g. 017********"
               type="number"
               round={true}
@@ -75,6 +78,6 @@ const AppComponent = (props: {
   );
 }
 
-const App = connect(null, { getAllContacts })(AppComponent);
+const App = connect(null, { getAllContacts, searchContacts })(AppComponent);
 
 export default App;

@@ -60,3 +60,16 @@ export const deleteContact = (updatedContact: IContact) => async (dispatch: any)
     }
   }
 };
+
+export const searchContacts = (searchingValue: string) => async (dispatch: any) => {
+  try {
+    const response = await axios.get(`${APIUrl}/phonebook/search?phone=${searchingValue}`);
+    dispatch({ type: GET_ALL_CONTACTS, payload: response.data });
+  } catch (error) {
+    if (isEqual(error.message, 'Network Error')) {
+      console.log('Network Error');
+    } else {
+      console.log(error.response);
+    }
+  }
+};
