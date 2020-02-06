@@ -1,32 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navbar, Button, Intent, Card, InputGroup, Popover, Position } from '@blueprintjs/core';
 import { ContactForm } from './components/Form';
 import { ContactList } from './components/List';
+import { connect } from 'react-redux';
+import { getAllContacts } from './stores/contact/Actions';
 
-const ContactInfos = [
-  {
-    name: 'mahdi',
-    phone: '01789123123'
-  },
-  {
-    name: 'mahdi',
-    phone: '01789123123'
-  },
-  {
-    name: 'mahdi',
-    phone: '01789123123'
-  },
-  {
-    name: 'mahdi',
-    phone: '01789123123'
-  },
-  {
-    name: 'mahdi',
-    phone: '01789123123'
-  },
-]
+const AppComponent = (props: {
+  getAllContacts: () => void;
+}) => {
+  
+  useEffect(() => {
+    props.getAllContacts();
+  }, [props])
 
-const App = () => {
   return (
     <div>
       <Navbar className="flex justify-center" fixedToTop={true}>
@@ -78,7 +64,7 @@ const App = () => {
           </div>
 
           <div className="fl w-100">
-            <ContactList contacts={ContactInfos} />
+            <ContactList />
           </div>
 
         </div>
@@ -87,5 +73,7 @@ const App = () => {
     </div>
   );
 }
+
+const App = connect(null, { getAllContacts })(AppComponent);
 
 export default App;

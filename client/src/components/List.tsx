@@ -1,30 +1,33 @@
 import React from 'react'
 import { Popover, Position, Button, Intent, Menu, MenuItem } from '@blueprintjs/core'
 import { ContactForm } from './Form'
+import { IContact } from '../stores/contact/Reducer'
+import { connect } from 'react-redux'
+import { deleteContact } from '../stores/contact/Actions'
 
-interface Contact {
-  name: string;
-  phone: string;
-}
-
-export const ContactList = (props: {
-  contacts: Contact[]
+const ContactListComponent = (props: {
+  contacts?: IContact[];
+  deleteContact: (contact: IContact) => void;
 }) => {
   return (
     <ul className="pl0">
-      {props.contacts.length > 0 ? props.contacts.map((contactInfo, i) => (
+      {props.contacts && props.contacts.length > 0 ? props.contacts.map((contactInfo, i) => (
         <li
-          className={`flex items-center lh-copy pa3 ph0-l ${props.contacts.length - 1 !== i ? 'bb b--black-10' : ''}`}
+          key={contactInfo._id}
+          className={`flex items-center lh-copy pa3 ph0-l ${props.contacts!.length - 1 !== i ? 'bb b--black-10' : ''}`}
         >
           <div className="pl3 flex-auto">
             <div className="db f4 f5 fw4">{contactInfo.name}</div>
-            <div className="black-70 f6">{contactInfo.phone}</div>
+            <div className="black-70 f6">{contactInfo.phoneNumber}</div>
           </div>
           <div>
             <Popover
               position={Position.BOTTOM}
               content={
-                <ContactForm contactInfo={contactInfo} />
+                <ContactForm
+                  contactInfo={contactInfo}
+                  edit={true}
+                />
               }
               target={
                 <Button
@@ -44,7 +47,7 @@ export const ContactList = (props: {
                     text="Confirm"
                     intent={Intent.DANGER}
                     className="pt-minimal"
-                  // onClick={(e) => props.onclick(e)}
+                    onClick={() => props.deleteContact(contactInfo)}
                   />
                   <MenuItem
                     icon="cross"
@@ -71,3 +74,11 @@ export const ContactList = (props: {
     </ul>
   )
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    contacts: state.contactReducer.contacts
+  };
+}
+
+export const ContactList = connect(mapStateToProps, { deleteContact })(ContactListComponent);
