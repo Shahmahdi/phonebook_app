@@ -20,13 +20,29 @@ describe('Create APIs for phonebook', () => {
       request(app)
         .post('/api/v1/phonebook/')
         .send(allEmptyPhonebook)
-        // .expect(httpStatus[400])
-        .expect({"message":"Name is required"})
+        .expect(httpStatus.BAD_REQUEST)
         .then(res => {
-          res.type = 'EmptyError';
+          res.message = "Name is required";
           done();
         })
         .catch(done);
-    })
-  })
-})
+    });
+  });
+  let allEmptyPhonebook1 = {
+    name: 'asdfasdf',
+    phoneNumber: '01789442325'
+  }
+  describe('#indexof()', () => {
+    it('should create a new contact info', done => {
+      request(app)
+        .post('/api/v1/phonebook/')
+        .send(allEmptyPhonebook1)
+        .expect(httpStatus.CREATED)
+        .then(res => {
+          allEmptyPhonebook1.phoneNumber = res.body.phoneNumber;
+          done();
+        })
+        .catch(done);
+    });
+  });
+});
