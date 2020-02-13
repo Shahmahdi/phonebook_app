@@ -15,6 +15,10 @@ Node, mongo
 - Then go to the server folder and run ``` npm install ``` and then ``` npm start ``` script. It will start the server on port 4000.
 - Go to the client folder and run ``` yarn install ``` and then ``` yarn start ``` script.
 - And then go to the chrome browser and hit this URL: ``` localhost:3000 ```.
+
+## For running tests
+
+For running testcase run: npm test
  
 ## API Documentation
 
