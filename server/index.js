@@ -9,7 +9,19 @@ const mongoErrorHandler = require('./validator/mongoErrorFormat');
 
 const app = express();
 
-mongoose.connect(process.env.Database, {
+// For local machine
+
+// mongoose.connect(process.env.Database, {
+//   useNewUrlParser: true,
+//   useCreateIndex: true,
+//   useUnifiedTopology: true
+// }).then(() => {
+//   console.log('Database connected..');
+// });
+
+// For docker machine
+
+mongoose.connect(process.env.DatabaseDocker, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
